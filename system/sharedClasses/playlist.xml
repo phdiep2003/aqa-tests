@@ -6,24 +6,16 @@
 	In order to save machine resources, exclude sharedClasses subfolder in parallel mode
 	To enable it, please update excludes array in JenkinsfileBase
 	-->
-	<!--
-	Special target to get machine information. This target is in each subfolder playlist.xml.
-	To avoid test target duplication, this belongs to sanity, extended and special. Regular test should only belong to one level -->
-	<test>
-		<testCaseName>MachineInfo</testCaseName>
-		<command>$(JAVA_COMMAND) -cp $(JVM_TEST_ROOT)$(D)TKG$(D)bin$(D)TestKitGen.jar org.openj9.envInfo.EnvDetector MachineInfo; \
-	$(TEST_STATUS)</command>
-		<levels>
-			<level>sanity</level>
-			<level>extended</level>
-			<level>special</level>
-		</levels>
-		<groups>
-			<group>system</group>
-		</groups>
-	</test>
+	
 	<test>
 		<testCaseName>SharedClassesAPI</testCaseName>
+		<disables>
+			<disable>
+				<comment>automation/issues/474</comment>
+				<impl>ibm</impl>
+				<version>8</version>
+			</disable>
+		</disables>
 		<variations>
 			<variation>Mode110</variation>
 			<variation>Mode610</variation>
@@ -44,6 +36,13 @@
 	</test>
 	<test>
 		<testCaseName>SharedClassesWorkload</testCaseName>
+		<disables>
+			<disable>
+				<comment>automation/issues/474</comment>
+				<impl>ibm</impl>
+				<version>8</version>
+			</disable>
+		</disables>
 		<variations>
 			<variation>Mode110</variation>
 			<variation>Mode610</variation>
@@ -63,6 +62,13 @@
 	</test>
 	<test>
 		<testCaseName>SC_Softmx_Increase</testCaseName>
+		<disables>
+			<disable>
+				<comment>automation/issues/474</comment>
+				<impl>ibm</impl>
+				<version>8</version>
+			</disable>
+		</disables>
 		<variations>
 			<variation>Mode110</variation>
 			<variation>Mode610</variation>
@@ -82,6 +88,13 @@
 	</test>
 	<test>
 		<testCaseName>SC_Softmx_UpDown</testCaseName>
+		<disables>
+			<disable>
+				<comment>automation/issues/474</comment>
+				<impl>ibm</impl>
+				<version>8</version>
+			</disable>
+		</disables>
 		<variations>
 			<variation>Mode110</variation>
 			<variation>Mode610</variation>
@@ -101,6 +114,13 @@
 	</test>
 	<test>
 		<testCaseName>SC_Softmx_JitAot</testCaseName>
+		<disables>
+			<disable>
+				<comment>automation/issues/474</comment>
+				<impl>ibm</impl>
+				<version>8</version>
+			</disable>
+		</disables>
 		<variations>
 			<variation>Mode110</variation>
 			<variation>Mode610</variation>
@@ -121,6 +141,13 @@
 	</test>
 	<test>
 		<testCaseName>SC_Softmx_JitAot_Linux</testCaseName>
+		<disables>
+			<disable>
+				<comment>automation/issues/474</comment>
+				<impl>ibm</impl>
+				<version>8</version>
+			</disable>
+		</disables>
 		<variations>
 			<variation>Mode110</variation>
 			<variation>Mode610</variation>
@@ -141,6 +168,13 @@
 	</test>
 	<test>
 		<testCaseName>SharedClasses.SCM01.SingleCL</testCaseName>
+		<disables>
+			<disable>
+				<comment>automation/issues/474</comment>
+				<impl>ibm</impl>
+				<version>8</version>
+			</disable>
+		</disables>
 		<variations>
 			<variation>Mode110</variation>
 			<variation>Mode610</variation>
@@ -160,6 +194,13 @@
 	</test>
 	<test>
 		<testCaseName>SharedClasses.SCM01.MultiCL</testCaseName>
+		<disables>
+			<disable>
+				<comment>automation/issues/474</comment>
+				<impl>ibm</impl>
+				<version>8</version>
+			</disable>
+		</disables>
 		<variations>
 			<variation>Mode110</variation>
 			<variation>Mode610</variation>
@@ -179,6 +220,13 @@
 	</test>
 	<test>
 		<testCaseName>SharedClasses.SCM01.MultiThread</testCaseName>
+		<disables>
+			<disable>
+				<comment>automation/issues/474</comment>
+				<impl>ibm</impl>
+				<version>8</version>
+			</disable>
+		</disables>
 		<variations>
 			<variation>Mode110</variation>
 			<variation>Mode610</variation>
@@ -204,6 +252,13 @@
 	</test>
 	<test>
 		<testCaseName>SharedClasses.SCM01.MultiThreadMultiCL</testCaseName>
+		<disables>
+			<disable>
+				<comment>automation/issues/474</comment>
+				<impl>ibm</impl>
+				<version>8</version>
+			</disable>
+		</disables>
 		<variations>
 			<variation>Mode110</variation>
 			<variation>Mode610</variation>
@@ -223,6 +278,13 @@
 	</test>
 	<test>
 		<testCaseName>SharedClasses.SCM23.SingleCL</testCaseName>
+		<disables>
+			<disable>
+				<comment>automation/issues/474</comment>
+				<impl>ibm</impl>
+				<version>8</version>
+			</disable>
+		</disables>
 		<variations>
 			<variation>Mode110</variation>
 			<variation>Mode610</variation>
@@ -242,6 +304,13 @@
 	</test>
 	<test>
 		<testCaseName>SharedClasses.SCM23.MultiCL</testCaseName>
+		<disables>
+			<disable>
+				<comment>automation/issues/474</comment>
+				<impl>ibm</impl>
+				<version>8</version>
+			</disable>
+		</disables>
 		<variations>
 			<variation>Mode110</variation>
 			<variation>Mode610</variation>
@@ -261,6 +330,13 @@
 	</test>
 	<test>
 		<testCaseName>SharedClasses.SCM23.MultiThread</testCaseName>
+		<disables>
+			<disable>
+				<comment>automation/issues/474</comment>
+				<impl>ibm</impl>
+				<version>8</version>
+			</disable>
+		</disables>
 		<variations>
 			<variation>Mode110</variation>
 			<variation>Mode610</variation>
@@ -286,6 +362,13 @@
 	</test>
 	<test>
 		<testCaseName>SharedClasses.SCM23.MultiThreadMultiCL</testCaseName>
+		<disables>
+			<disable>
+				<comment>automation/issues/474</comment>
+				<impl>ibm</impl>
+				<version>8</version>
+			</disable>
+		</disables>
 		<variations>
 			<variation>Mode110</variation>
 			<variation>Mode610</variation>
