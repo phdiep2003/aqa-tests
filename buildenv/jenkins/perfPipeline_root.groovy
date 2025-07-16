@@ -28,9 +28,40 @@ PLATFORMS.each { PLATFORM ->
                 shortName = "hs"
             }
         }
-        def jobName = "Perf_openjdk21_${shortName}_sanity.perf_${PLATFORM}_${BENCHMARK}"
-        JOBS[jobName] = {
-            build job: jobName, parameters: childParams, propagate: true
+
+}
+node("worker || (ci.role.test&&hw.arch.x86&&sw.os.linux)") {
+        perfConfigJson.each { item ->
+                def BENCHMARK = item.BENCHMARK 
+                def TARGET = item.TARGET
+                def BUILD_LIST = item.BUILD_LIST
+                def PLATMACHINE_MAP = item.PLAT_MACHINE_MAP
+                def baseParams = childParams.collect()
+                baseParams << string(name: "BENCHMARK", value: item.BENCHMARK)
+                baseParams << string(name: "TARGET", value: item.TARGET)
+                baseParams << string(name: "BUILD_LIST", value: item.BUILD_LIST)
+                baseParams << string(name: "PERF_ITERATIONS", value: item.PERF_ITERATIONS ? item.PERF_ITERATIONS.toString() : "4")
+                
+                item.PLAT_MACHINE_MAP.each { kv -> 
+                        kv.each {p, m -> 
+                                // Clone baseParams to avoid mutation
+                                def thisChildParams = baseParams.collect()
+                                thisChildParams << string(name: "PLATFORM", value: p)
+                                thisChildParams << string(name: "LABEL", value: m)
+
+                                def shortName = (params.JDK_IMPL && params.JDK_IMPL == "hotspot") ? "hs" : "j9"
+                                def jobName = "Perf_openjdk${params.JDK_VERSION}_${shortName}_sanity.perf_${p}_${item.BENCHMARK}"
+                                def jobIsRunnable = JobHelper.jobIsRunnable(jobName)
+                                echo "jobName ${jobName} params: ${thisChildParams}"
+                                if (!jobIsRunnable) {
+                                        echo "Generating downstream job '${jobName}' from perfL2JobTemplate …"
+                                        createPerfL2Job(jobName, p, item.BENCHMARK)
+                                }
+                                JOBS[jobName] = {
+                                        build job: jobName, parameters: thisChildParams, propagate: true
+                                }
+                        }
+                }
         }
     }
 }
